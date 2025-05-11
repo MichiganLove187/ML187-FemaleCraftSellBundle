@@ -2,6 +2,8 @@
 
 A FiveM resource for QBCore framework that adds MultiCraftSellBundle. Designed For Females to have more activity's!.
 
+PLEASE DO NOT TRY AND RESELL
+
 ## Features
 
 Multiple Crafts: Shoes, Wigs, Bags, Nails, Necklaces, Lashes, Bracelets and Earrings!!!
