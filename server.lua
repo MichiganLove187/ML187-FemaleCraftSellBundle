@@ -1,6 +1,5 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
---shop
 RegisterNetEvent('ml187-femalecraftsellbundle:server:buyItem')
 AddEventHandler('ml187-femalecraftsellbundle:server:buyItem', function(data)
     local src = source
@@ -9,19 +8,16 @@ AddEventHandler('ml187-femalecraftsellbundle:server:buyItem', function(data)
     local cash = Player.PlayerData.money["cash"]
 
     if cash >= price then
-        -- First remove the money
         Player.Functions.RemoveMoney("cash", price)
-        -- Then give the item
         Player.Functions.AddItem(data.item, 1)
         
-        -- Notify the player
         TriggerClientEvent('QBCore:Notify', src, "Purchased " .. data.label .. " for $" .. price, "success")
         TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[data.item], "add")
     else
         TriggerClientEvent('QBCore:Notify', src, "You don't have enough cash!", "error")
     end
 end)
---shop
+
 
 
 QBCore.Functions.CreateUseableItem(Config.CraftingTableItem, function(source, item)
@@ -70,25 +66,20 @@ RegisterNetEvent('ml187-femalecraftsellbundle:server:CraftItem', function(item, 
     local recipe = Config.Recipes[category][item]
     
     if recipe and Player then
-        -- Debug prints to track process
-        print("Starting craft for: " .. item)
-        print("Player found: " .. Player.PlayerData.citizenid)
+        --print("Starting craft for: " .. item)
+        --print("Player found: " .. Player.PlayerData.citizenid)
         
-        -- Remove materials first
         for material, amount in pairs(recipe.materials) do
             Player.Functions.RemoveItem(material, amount)
             TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[material], "remove")
         end
         
-        -- Force give item with direct inventory update
         Player.Functions.AddItem(item, 1)
         
-        -- Send multiple notifications to ensure player sees them
         TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[item], "add")
         TriggerClientEvent('QBCore:Notify', src, "Crafted: " .. recipe.label, "success", 3500)
         
-        -- Additional debug print
-        print("Craft complete - Item: " .. item .. " Category: " .. category)
+        --print("Craft complete - Item: " .. item .. " Category: " .. category)
     end
 end)
 
@@ -104,7 +95,6 @@ RegisterNetEvent('ml187-femalecraftsellbundle:server:GiveTable', function()
     Player.Functions.AddItem(Config.CraftingTableItem, 1)
 end)
 
---added
 RegisterNetEvent('ml187-femalecraftsellbundle:server:SellItem', function(item)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
@@ -116,7 +106,6 @@ RegisterNetEvent('ml187-femalecraftsellbundle:server:SellItem', function(item)
     local amountToBuy = Config.Selling.enableRandomAmount and math.random(1, maxAmount) or 1
     amountToBuy = math.min(amountToBuy, itemData.amount)
     
-    -- Get the correct price from the config
     local priceData = Config.SellPrices[item]
     local itemPrice = math.random(priceData.min, priceData.max)
     local totalPrice = itemPrice * amountToBuy
