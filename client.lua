@@ -8,10 +8,8 @@ local activeSelling = false
 local sellingThread = nil
 local hasSpawnedTable = false
 
----start of shops
 local PlayerData = {}
 
--- Create blips for shops
 CreateThread(function()
     for _, shop in pairs(Config.Shops) do
         local blip = AddBlipForCoord(shop.location.x, shop.location.y, shop.location.z)
@@ -26,7 +24,6 @@ CreateThread(function()
     end
 end)
 
--- Create shop interaction zones
 CreateThread(function()
     while true do
         local sleep = 1000
@@ -51,7 +48,6 @@ CreateThread(function()
     end
 end)
 
--- Shop menu
 function OpenShopMenu(shop)
     local menuItems = {}
     for k, v in pairs(shop.items) do
@@ -72,12 +68,10 @@ function OpenShopMenu(shop)
     exports['qb-menu']:openMenu(menuItems)
 end
 
--- Buy item event handler
 RegisterNetEvent('ml187-femalecraftsellbundle:client:buyItem', function(data)
     TriggerServerEvent('ml187-femalecraftsellbundle:server:buyItem', data)
 end)
 
--- 3D Text function
 function DrawText3D(x, y, z, text)
     SetTextScale(0.35, 0.35)
     SetTextFont(4)
@@ -93,9 +87,7 @@ function DrawText3D(x, y, z, text)
     ClearDrawOrigin()
 end
 
---- end of shop
 
--- Crafting Table Functions
 local function SpawnCraftingTable(coords)
     local model = `v_res_mddresser`
     RequestModel(model)
@@ -135,7 +127,6 @@ RegisterNetEvent('ml187-femalecraftsellbundle:client:PlaceTable', function()
     local heading = GetEntityHeading(ped)
     
     if not hasSpawnedTable then
-        -- Remove table from inventory first
         TriggerServerEvent('ml187-femalecraftsellbundle:server:RemoveTable')
         
         local tableObj = SpawnCraftingTable(vector4(pos.x, pos.y, pos.z, heading))
@@ -165,7 +156,6 @@ end)
 
 RegisterNetEvent('ml187-femalecraftsellbundle:client:PickupTable', function()
     if placedTableCoords then
-        -- Only give table if you're the original placer
         if GetPlayerServerId(PlayerId()) == originalPlacer then
             TriggerServerEvent('ml187-femalecraftsellbundle:server:GiveTable')
         end
@@ -182,7 +172,6 @@ RegisterNetEvent('ml187-femalecraftsellbundle:client:PickupTable', function()
     end
 end)
 
--- Add this new event
 RegisterNetEvent('ml187-femalecraftsellbundle:client:SyncTableRemoval', function()
     for k, v in pairs(spawnedTables) do
         DeleteObject(v)
@@ -197,9 +186,7 @@ RegisterNetEvent('ml187-femalecraftsellbundle:server:GiveTable', function()
     local Player = QBCore.Functions.GetPlayer(src)
     
     if Player then
-        -- Direct inventory manipulation with the exact item name from your shared items
         Player.Functions.AddItem('crafting_table', 1, false, {})
-        -- Visual feedback
         TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items['crafting_table'], "add")
         TriggerClientEvent('QBCore:Notify', src, "Picked up crafting table", "success", 2500)
     end
@@ -341,11 +328,9 @@ RegisterNetEvent('ml187-femalecraftsellbundle:client:OpenCraftingMenu', function
 end)
 
 RegisterNetEvent('ml187-femalecraftsellbundle:client:CraftItem', function(data)
-    -- Debug prints to track data flow
-    print("Category:", data.category)
-    print("Item:", data.item)
+    --print("Category:", data.category)
+    --print("Item:", data.item)
     
-    -- Get recipe from correct category
     local categoryRecipes = Config.Recipes[data.category]
     local recipe = categoryRecipes[data.item]
     
@@ -377,7 +362,6 @@ function StartSellingLoop()
     sellingThread = CreateThread(function()
         while activeSelling do
             if not selling then
-                -- Check if player has any sellable items
                 QBCore.Functions.TriggerCallback('ml187-femalecraftsellbundle:server:HasSellableItems', function(hasSellable)
                     if hasSellable then
                         AttemptToSell()
@@ -426,7 +410,6 @@ function AttemptToSell()
     
     TaskGoToEntity(currentBuyer, ped, -1, 2.0, 1.0, 0, 0)
     
-    -- Create a thread to continuously show the approach dialog while NPC is walking
     local dialogThread = CreateThread(function()
         local dialogText = Config.NPCDialogs.approach[math.random(#Config.NPCDialogs.approach)]
         while DoesEntityExist(currentBuyer) and selling and 
@@ -437,13 +420,11 @@ function AttemptToSell()
         end
     end)
     
-    -- Wait for NPC to reach player
     while DoesEntityExist(currentBuyer) and selling and 
           #(GetEntityCoords(currentBuyer) - GetEntityCoords(ped)) > 2.5 do
         Wait(100)
     end
     
-    -- Once NPC reaches player, open sell menu
     if DoesEntityExist(currentBuyer) and selling then
         OpenSellMenu()
     end
@@ -485,7 +466,6 @@ RegisterNetEvent('ml187-femalecraftsellbundle:client:TryToSell', function(data)
         local price = math.random(Config.SellPrices[data.item].min, Config.SellPrices[data.item].max)
         dialogText = Config.NPCDialogs.accept[math.random(#Config.NPCDialogs.accept)]
         
-        -- Create a thread to show the accept dialog for a few seconds
         CreateThread(function()
             local endTime = GetGameTimer() + 3000 -- Show for 3 seconds
             while DoesEntityExist(currentBuyer) and GetGameTimer() < endTime do
@@ -499,7 +479,6 @@ RegisterNetEvent('ml187-femalecraftsellbundle:client:TryToSell', function(data)
     else
         dialogText = Config.NPCDialogs.reject[math.random(#Config.NPCDialogs.reject)]
         
-        -- Create a thread to show the reject dialog for a few seconds
         CreateThread(function()
             local endTime = GetGameTimer() + 3000 -- Show for 3 seconds
             while DoesEntityExist(currentBuyer) and GetGameTimer() < endTime do
@@ -510,7 +489,6 @@ RegisterNetEvent('ml187-femalecraftsellbundle:client:TryToSell', function(data)
         end)
     end
     
-    -- Wait a moment before cleaning up
     Wait(3000)
     CleanupSale()
 end)
