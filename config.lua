@@ -14,11 +14,17 @@ Config.Selling = {
 }
 
 Config.BuyerPeds = {
-    "a_m_m_business_01",
-    "a_f_m_business_02",
-    "a_m_y_business_03",
-    "s_m_m_highsec_01",
-    "s_m_m_highsec_02"
+    "s_f_m_fembarber",
+    "s_f_m_sweatshop_01",
+    "s_f_y_movprem_01",
+    "s_f_y_hooker_01",
+    "s_f_y_shop_mid",
+    "a_f_y_business_01",
+    "a_f_y_business_02",
+    "a_f_y_business_03",
+    "a_f_y_business_04",
+    "a_f_m_bevhills_01",
+    "a_f_m_bevhills_02"
 }
 
 Config.Shops = {
@@ -40,8 +46,8 @@ Config.Shops = {
 
 Config.Recipes = {
     shoes = {
-        ["chanelheels"] = {
-            label = "Chanel Heels",
+        ["heels"] = {
+            label = "Heels",
             time = 5000,
             materials = {
                 ["fabric"] = 5,
@@ -50,8 +56,8 @@ Config.Recipes = {
                 ["rubber"] = 2
             }
         },
-        ["uggs"] = {
-            label = "Uggs",
+        ["furboots"] = {
+            label = "Fur Boots",
             time = 6000,
             materials = {
                 ["fabric"] = 5,
@@ -60,8 +66,8 @@ Config.Recipes = {
                 ["rubber"] = 2
             }
         },
-        ["ysl"] = {
-            label = "Ysl Heels",
+        ["dheels"] = {
+            label = "Designer Heels",
             time = 6000,
             materials = {
                 ["fabric"] = 5,
@@ -70,8 +76,8 @@ Config.Recipes = {
                 ["rubber"] = 2
             }
         },
-        ["christianlouboutin"] = { 
-            label = "Christian Louboutin",
+        ["lheels"] = { 
+            label = "Luxury Heels",
             time = 6000,
             materials = {
                 ["fabric"] = 5,
@@ -80,8 +86,8 @@ Config.Recipes = {
                 ["rubber"] = 2
             }
         },
-        ["jimmychoo"] = { 
-            label = "Jimmy Choo",
+        ["lboots"] = { 
+            label = "Luxury Boots",
             time = 6000,
             materials = {
                 ["fabric"] = 5,
@@ -110,44 +116,8 @@ Config.Recipes = {
                 ["sewingkit"] = 1
             }
         },
-        ["short_curled_wig"] = {
-            label = "Short Curled Wig",
-            time = 4000,
-            materials = {
-                ["wigcap"] = 1,
-                ["wigbundle"] = 1,
-                ["sewingkit"] = 1
-            }
-        },
-        ["long_blonde_wig"] = {
-            label = "Long Blonde Wig",
-            time = 4000,
-            materials = {
-                ["wigcap"] = 1,
-                ["wigbundle"] = 1,
-                ["sewingkit"] = 1
-            }
-        },
-        ["40inchwigs"] = {
-            label = "40 Inch Wig",
-            time = 4000,
-            materials = {
-                ["wigcap"] = 1,
-                ["wigbundle"] = 1,
-                ["sewingkit"] = 1
-            }
-        },
         ["braidwigs"] = {
             label = "Braided Wig",
-            time = 4000,
-            materials = {
-                ["wigcap"] = 1,
-                ["wigbundle"] = 1,
-                ["sewingkit"] = 1
-            }
-        },
-        ["bodywavewigs"] = {
-            label = "Body Wave Wig",
             time = 4000,
             materials = {
                 ["wigcap"] = 1,
@@ -173,132 +143,42 @@ Config.Recipes = {
                 ["sewingkit"] = 1
             }
         },
-        ["naturalwavewigs"] = {
-            label = "Natural Wave Wig",
-            time = 4000,
-            materials = {
-                ["wigcap"] = 1,
-                ["wigbundle"] = 1,
-                ["sewingkit"] = 1
-            }
-        },
-        ["deepwavewigs"] = {
-            label = "Deep Wave Wig",
-            time = 4000,
-            materials = {
-                ["wigcap"] = 1,
-                ["wigbundle"] = 1,
-                ["sewingkit"] = 1
-            }
-        },
     },
     bags = {
         ["bowling_bag"] = {
             label = "Bowling Bag",
             time = 3000,
             materials = {
-                ["handbag_leather"] = 1,
-                ["handbag_sewing_kits"] = 1,
-                ["handbag_cloth"] = 1
+                ["leather"] = 1,
+                ["sewing_kits"] = 1,
+                ["cloth"] = 1
             }
         },
         ["pale_pink_bag"] = {
             label = "Pale Pink Bag",
             time = 3000,
             materials = {
-                ["handbag_leather"] = 1,
-                ["handbag_sewing_kits"] = 1,
-                ["handbag_cloth"] = 1
+                ["leather"] = 1,
+                ["sewing_kits"] = 1,
+                ["cloth"] = 1
             }
         },
         ["pink_heart_bag"] = {
             label = "Pink Heart Bag",
             time = 3000,
             materials = {
-                ["handbag_leather"] = 1,
-                ["handbag_sewing_kits"] = 1,
-                ["handbag_cloth"] = 1
-            }
-        },
-        ["pink_messenger_bag"] = {
-            label = "Pink Messenger Bag",
-            time = 3000,
-            materials = {
-                ["handbag_leather"] = 1,
-                ["handbag_sewing_kits"] = 1,
-                ["handbag_cloth"] = 1
+                ["leather"] = 1,
+                ["sewing_kits"] = 1,
+                ["cloth"] = 1
             }
         },
         ["pink_tote_bag"] = {
             label = "Pink Tote Bag",
             time = 3000,
             materials = {
-                ["handbag_leather"] = 1,
-                ["handbag_sewing_kits"] = 1,
-                ["handbag_cloth"] = 1
-            }
-        },
-        ["tote_bag"] = {
-            label = "Tote Bag",
-            time = 3000,
-            materials = {
-                ["handbag_leather"] = 1,
-                ["handbag_sewing_kits"] = 1,
-                ["handbag_cloth"] = 1
-            }
-        },
-        ["elegancy_beauty_bag"] = {
-            label = "Elegancy Beauty Bag",
-            time = 3000,
-            materials = {
-                ["handbag_leather"] = 1,
-                ["handbag_sewing_kits"] = 1,
-                ["handbag_cloth"] = 1
-            }
-        },
-        ["messenger_purse"] = {
-            label = "Messenger Purse",
-            time = 3000,
-            materials = {
-                ["handbag_leather"] = 1,
-                ["handbag_sewing_kits"] = 1,
-                ["handbag_cloth"] = 1
-            }
-        },
-        ["small_yellow_bag"] = {
-            label = "Small Yellow Bag",
-            time = 3000,
-            materials = {
-                ["handbag_leather"] = 1,
-                ["handbag_sewing_kits"] = 1,
-                ["handbag_cloth"] = 1
-            }
-        },
-        ["leather_bag"] = {
-            label = "Leather Bag",
-            time = 3000,
-            materials = {
-                ["handbag_leather"] = 1,
-                ["handbag_sewing_kits"] = 1,
-                ["handbag_cloth"] = 1
-            }
-        },
-        ["funky_bag"] = {
-            label = "Funky Bag",
-            time = 3000,
-            materials = {
-                ["fabrhandbag_leatheric"] = 1,
-                ["handbag_sewing_kits"] = 1,
-                ["handbag_cloth"] = 1
-            }
-        },
-        ["elegance_bag"] = {
-            label = "Elegance Bag",
-            time = 3000,
-            materials = {
-                ["handbag_leather"] = 1,
-                ["handbag_sewing_kits"] = 1,
-                ["handbag_cloth"] = 1
+                ["leather"] = 1,
+                ["sewing_kits"] = 1,
+                ["cloth"] = 1
             }
         },
     },
@@ -323,24 +203,6 @@ Config.Recipes = {
         },
         ["alm-nails"] = {
             label = "Alm Nails",
-            time = 4000,
-            materials = {
-                ["acrylic-liquid"] = 1,
-                ["acrylic-powder"] = 1,
-                ["acrylic-nails"] = 1
-            }
-        },
-        ["lip-nails"] = {
-            label = "Lip Nails",
-            time = 4000,
-            materials = {
-                ["acrylic-liquid"] = 1,
-                ["acrylic-powder"] = 1,
-                ["acrylic-nails"] = 1
-            }
-        },
-        ["bal-nails"] = {
-            label = "Bal Nails",
             time = 4000,
             materials = {
                 ["acrylic-liquid"] = 1,
@@ -444,8 +306,8 @@ Config.Recipes = {
         },
     },
     bracelets = {
-        ["rusticcuff"] = {
-            label = "Rustic Cuff",
+        ["cuff"] = {
+            label = "Cuff",
             time = 5000,
             materials = {
                 ["beads"] = 10,
@@ -453,7 +315,7 @@ Config.Recipes = {
             }
         },
         ["cuban"] = {
-            label = "Cuban Link",
+            label = "Cuban",
             time = 5000,
             materials = {
                 ["diamond"] = 3,
@@ -507,27 +369,7 @@ Config.SellPrices = {
         max = 1300,
         chance = 90
     },
-    ["short_curled_wig"] = {
-        min = 650,
-        max = 1300,
-        chance = 90
-    },
-    ["long_blonde_wig"] = {
-        min = 650,
-        max = 1300,
-        chance = 90
-    },
-    ["40inchwigs"] = {
-        min = 650,
-        max = 1300,
-        chance = 90
-    },
     ["braidwigs"] = {
-        min = 650,
-        max = 1300,
-        chance = 90
-    },
-    ["bodywavewigs"] = {
         min = 650,
         max = 1300,
         chance = 90
@@ -538,16 +380,6 @@ Config.SellPrices = {
         chance = 90
     },
     ["straightwigs"] = {
-        min = 650,
-        max = 1300,
-        chance = 90
-    },
-    ["naturalwavewigs"] = {
-        min = 650,
-        max = 1300,
-        chance = 90
-    },
-    ["deepwavewigs"] = {
         min = 650,
         max = 1300,
         chance = 90
@@ -612,16 +444,6 @@ Config.SellPrices = {
         max = 1300,
         chance = 90
     },
-    ["lip-nails"] = {
-        min = 650,
-        max = 1300,
-        chance = 90
-    },
-    ["bal-nails"] = {
-        min = 650,
-        max = 1300,
-        chance = 90
-    },
     ["squ-nails"] = {
         min = 650,
         max = 1300,
@@ -631,7 +453,7 @@ Config.SellPrices = {
         min = 650,
         max = 1300,
         chance = 90
-    }, -- new items
+    },
     ["gages"] = {
         min = 650,
         max = 1300,
@@ -657,7 +479,7 @@ Config.SellPrices = {
         max = 1300,
         chance = 90
     },
-    ["rusticcuff"] = {
+    ["cuff"] = {
         min = 650,
         max = 1300,
         chance = 90
@@ -707,27 +529,27 @@ Config.SellPrices = {
         max = 1300,
         chance = 90
     },
-    ["jimmychoo"] = {
+    ["lboots"] = {
         min = 650,
         max = 1300,
         chance = 90
     },
-    ["christianlouboutin"] = {
+    ["lheels"] = {
         min = 650,
         max = 1300,
         chance = 90
     },
-    ["ysl"] = {
+    ["dheels"] = {
         min = 650,
         max = 1300,
         chance = 90
     },
-    ["uggs"] = {
+    ["furboots"] = {
         min = 650,
         max = 1300,
         chance = 90
     },
-    ["chanelheels"] = {
+    ["heels"] = {
         min = 650,
         max = 1300,
         chance = 90
