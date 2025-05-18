@@ -7,6 +7,7 @@ local selling = false
 local activeSelling = false
 local sellingThread = nil
 local hasSpawnedTable = false
+
 ---start of shops
 local PlayerData = {}
 
@@ -39,7 +40,7 @@ CreateThread(function()
                 DrawMarker(2, shop.location.x, shop.location.y, shop.location.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.3, 0.3, 0.2, 255, 255, 255, 255, 0, 0, 0, 1, 0, 0, 0)
                 
                 if dist < 2 then
-                    DrawText3D(shop.location.x, shop.location.y, shop.location.z + 0.2, '~g~E~w~ - Browse Wigs')
+                    DrawText3D(shop.location.x, shop.location.y, shop.location.z + 0.2, '~g~E~w~ - FemaleCraft Store!')
                     if IsControlJustPressed(0, 38) then -- E key
                         OpenShopMenu(shop)
                     end
@@ -91,6 +92,7 @@ function DrawText3D(x, y, z, text)
     DrawRect(0.0, 0.0+0.0125, 0.017+ factor, 0.03, 0, 0, 0, 75)
     ClearDrawOrigin()
 end
+
 --- end of shop
 
 -- Crafting Table Functions
@@ -375,17 +377,6 @@ function StartSellingLoop()
     sellingThread = CreateThread(function()
         while activeSelling do
             if not selling then
-                AttemptToSell()
-            end
-            Wait(Config.SellCooldown)
-        end
-    end)
-end
-
-function StartSellingLoop()
-    sellingThread = CreateThread(function()
-        while activeSelling do
-            if not selling then
                 -- Check if player has any sellable items
                 QBCore.Functions.TriggerCallback('ml187-femalecraftsellbundle:server:HasSellableItems', function(hasSellable)
                     if hasSellable then
@@ -434,15 +425,29 @@ function AttemptToSell()
     SetPedDefaultComponentVariation(currentBuyer)
     
     TaskGoToEntity(currentBuyer, ped, -1, 2.0, 1.0, 0, 0)
-    ShowDialog(currentBuyer, Config.NPCDialogs.approach[math.random(#Config.NPCDialogs.approach)])
     
-    while GetDistanceBetweenCoords(GetEntityCoords(currentBuyer), GetEntityCoords(ped), true) > 2.5 do
+    -- Create a thread to continuously show the approach dialog while NPC is walking
+    local dialogThread = CreateThread(function()
+        local dialogText = Config.NPCDialogs.approach[math.random(#Config.NPCDialogs.approach)]
+        while DoesEntityExist(currentBuyer) and selling and 
+              #(GetEntityCoords(currentBuyer) - GetEntityCoords(ped)) > 2.5 do
+            local npcCoords = GetEntityCoords(currentBuyer)
+            DrawText3D(npcCoords.x, npcCoords.y, npcCoords.z + 1.0, dialogText)
+            Wait(0)
+        end
+    end)
+    
+    -- Wait for NPC to reach player
+    while DoesEntityExist(currentBuyer) and selling and 
+          #(GetEntityCoords(currentBuyer) - GetEntityCoords(ped)) > 2.5 do
         Wait(100)
     end
     
-    OpenSellMenu()
+    -- Once NPC reaches player, open sell menu
+    if DoesEntityExist(currentBuyer) and selling then
+        OpenSellMenu()
+    end
 end
-
 
 function OpenSellMenu()
     local sellMenu = {
@@ -474,15 +479,39 @@ end
 
 RegisterNetEvent('ml187-femalecraftsellbundle:client:TryToSell', function(data)
     local chance = Config.SellPrices[data.item].chance
+    local dialogText = ""
+    
     if math.random(100) <= chance then
         local price = math.random(Config.SellPrices[data.item].min, Config.SellPrices[data.item].max)
-        ShowDialog(currentBuyer, Config.NPCDialogs.accept[math.random(#Config.NPCDialogs.accept)])
+        dialogText = Config.NPCDialogs.accept[math.random(#Config.NPCDialogs.accept)]
+        
+        -- Create a thread to show the accept dialog for a few seconds
+        CreateThread(function()
+            local endTime = GetGameTimer() + 3000 -- Show for 3 seconds
+            while DoesEntityExist(currentBuyer) and GetGameTimer() < endTime do
+                local npcCoords = GetEntityCoords(currentBuyer)
+                DrawText3D(npcCoords.x, npcCoords.y, npcCoords.z + 1.0, dialogText)
+                Wait(0)
+            end
+        end)
+        
         TriggerServerEvent('ml187-femalecraftsellbundle:server:SellItem', data.item, price)
     else
-        ShowDialog(currentBuyer, Config.NPCDialogs.reject[math.random(#Config.NPCDialogs.reject)])
+        dialogText = Config.NPCDialogs.reject[math.random(#Config.NPCDialogs.reject)]
+        
+        -- Create a thread to show the reject dialog for a few seconds
+        CreateThread(function()
+            local endTime = GetGameTimer() + 3000 -- Show for 3 seconds
+            while DoesEntityExist(currentBuyer) and GetGameTimer() < endTime do
+                local npcCoords = GetEntityCoords(currentBuyer)
+                DrawText3D(npcCoords.x, npcCoords.y, npcCoords.z + 1.0, dialogText)
+                Wait(0)
+            end
+        end)
     end
     
-    Wait(2000)
+    -- Wait a moment before cleaning up
+    Wait(3000)
     CleanupSale()
 end)
 
@@ -511,25 +540,4 @@ function GetNearbySpawnPoint(playerCoords)
         tries = tries + 1
     end
     return nil
-end
-
-function ShowDialog(npc, text)
-    local coords = GetEntityCoords(npc)
-    DrawText3D(coords.x, coords.y, coords.z + 1.0, text)
-end
-
-function DrawText3D(x, y, z, text)
-    local onScreen, _x, _y = World3dToScreen2d(x, y, z)
-    local px, py, pz = table.unpack(GetGameplayCamCoords())
-    
-    SetTextScale(0.35, 0.35)
-    SetTextFont(4)
-    SetTextProportional(1)
-    SetTextColour(255, 255, 255, 215)
-    SetTextEntry("STRING")
-    SetTextCentre(1)
-    AddTextComponentString(text)
-    DrawText(_x, _y)
-    local factor = (string.len(text)) / 370
-    DrawRect(_x, _y + 0.0125, 0.015 + factor, 0.03, 41, 11, 41, 68)
 end
