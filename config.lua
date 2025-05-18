@@ -1,7 +1,7 @@
 Config = {}
 
 Config.CraftingTableItem = 'fcrafting_table'
-Config.SellCooldown = 600 -- 60 seconds between selling attempts 60000 original =60 sec
+Config.SellCooldown = 300 -- 60 seconds between selling attempts 60000 original =60 sec
 
 Config.Commands = {
     startSelling = "fsell",
@@ -30,14 +30,32 @@ Config.BuyerPeds = {
 Config.Shops = {
     {
         location = vector3(-821.7, -192.58, 37.58), -- Example location, change as needed
-        blipSprite = 71,
-        blipColor = 0,
-        blipScale = 0.7,
+        blipSprite = 211,
+        blipColor = 8,
+        blipScale = 1.0,
         blipName = "Female Craft Store",
         items = {
-            { name = "rolex", price = 100, label = "Golden Watch" },
-            { name = "rolex", price = 100, label = "Golden Watch" },
-            { name = "rolex", price = 100, label = "Golden Watch" },
+            { name = "fabric", price = 15, label = "Fabric" },
+            { name = "leather", price = 35, label = "Leather" },
+            { name = "thread", price = 5, label = "Thread" },
+            { name = "rubber", price = 20, label = "Rubber" },
+            { name = "wigcap", price = 50, label = "Wig Cap" },
+            { name = "wigbundle", price = 100, label = "Wig Bundle" },
+            { name = "sewingkit", price = 25, label = "Sewing Kit" },
+            { name = "cloth", price = 5, label = "Cloth" },
+            { name = "acrylic-liquid", price = 8, label = "Acrylic Liquid" },
+            { name = "acrylic-powder", price = 7, label = "Acrylic Powder" },
+            { name = "acrylic-nails", price = 9, label = "Acrylic Nails" },
+            { name = "silver", price = 86, label = "Silver" },
+            { name = "diamond", price = 150, label = "Diamond" },
+            { name = "polybutylene", price = 125, label = "Polybutylene" },
+            { name = "terephthalate", price = 150, label = "Terephthalate" },
+            { name = "beads", price = 3, label = "Beads" },
+            { name = "string", price = 2, label = "String" },
+            { name = "goldflakes", price = 78, label = "GoldFlakes" },
+            { name = "plastic", price = 6, label = "Plastic" },
+            { name = "joint", price = 6, label = "Joint" },
+            { name = "fcrafting_table", price = 1000, label = "Crafting Table" },
             -- Add more items as needed
         }
     }
@@ -183,49 +201,49 @@ Config.Recipes = {
         },
     },
     nails = {
-        ["cfn-nails"] = {
+        ["cfnnails"] = {
             label = "Cfn Nails",
             time = 5000,
             materials = {
-                ["acrylic-liquid"] = 1,
-                ["acrylic-powder"] = 1,
-                ["acrylic-nails"] = 1
+                ["acrylicliquid"] = 1,
+                ["acrylicpowder"] = 1,
+                ["acrylicnails"] = 1
             }
         },
-        ["sti-nails"] = {
+        ["stinails"] = {
             label = "Sti Nails",
             time = 4000,
             materials = {
-                ["acrylic-liquid"] = 1,
-                ["acrylic-powder"] = 1,
-                ["acrylic-nails"] = 1
+                ["acrylicliquid"] = 1,
+                ["acrylicpowder"] = 1,
+                ["acrylicnails"] = 1
             }
         },
-        ["alm-nails"] = {
+        ["almnails"] = {
             label = "Alm Nails",
             time = 4000,
             materials = {
-                ["acrylic-liquid"] = 1,
-                ["acrylic-powder"] = 1,
-                ["acrylic-nails"] = 1
+                ["acrylicliquid"] = 1,
+                ["acrylicpowder"] = 1,
+                ["acrylicnails"] = 1
             }
         },
-        ["squ-nails"] = {
+        ["squnails"] = {
             label = "Bal Nails",
             time = 4000,
             materials = {
-                ["acrylic-liquid"] = 1,
-                ["acrylic-powder"] = 1,
-                ["acrylic-nails"] = 1
+                ["acrylicliquid"] = 1,
+                ["acrylicpowder"] = 1,
+                ["acrylicnails"] = 1
             }
         },
-        ["fla-nails"] = {
+        ["flanails"] = {
             label = "Fal Nails",
             time = 4000,
             materials = {
-                ["acrylic-liquid"] = 1,
-                ["acrylic-powder"] = 1,
-                ["acrylic-nails"] = 1
+                ["acrylicliquid"] = 1,
+                ["acrylicpowder"] = 1,
+                ["acrylicnails"] = 1
             }
         },
     },
@@ -289,7 +307,7 @@ Config.Recipes = {
             }
         },
         ["volumelash"] = {
-            label = "Luxury Watch",
+            label = "Volume Lash",
             time = 8000,
             materials = {
                 ["polybutylene"] = 3,
@@ -329,7 +347,7 @@ Config.Recipes = {
             time = 4000,
             materials = {
                 ["silver"] = 2,
-                ["14kgoldflakes"] = 1
+                ["goldflakes"] = 1
             }
         },
         ["dangel"] = {
@@ -429,27 +447,27 @@ Config.SellPrices = {
         max = 1300,
         chance = 90
     },
-    ["cfn-nails"] = {
+    ["cfnnails"] = {
         min = 650,
         max = 1300,
         chance = 90
     },
-    ["sti-nails"] = {
+    ["stinails"] = {
         min = 650,
         max = 1300,
         chance = 90
     },
-    ["alm-nails"] = {
+    ["almnails"] = {
         min = 650,
         max = 1300,
         chance = 90
     },
-    ["squ-nails"] = {
+    ["squnails"] = {
         min = 650,
         max = 1300,
         chance = 90
     },
-    ["fla-nails"] = {
+    ["flanails"] = {
         min = 650,
         max = 1300,
         chance = 90
@@ -558,18 +576,24 @@ Config.SellPrices = {
 
 Config.NPCDialogs = {
     approach = {
-        "Hey, I heard you're selling something?",
-        "I'm interested in what you've got.",
-        "Show me what you're offering."
+        "Hey, I heard you're selling luxury items?",
+        "I'm interested in what you've got. Can I see?",
+        "Show me what you're offering, I'm looking for something special.",
+        "I need something high-end. What do you have?",
+        "My friend recommended your products. What's available?"
     },
     accept = {
-        "I'll take it!",
-        "Seems like a fair price.",
-        "Deal!"
+        "I'll take it! This is exactly what I wanted.",
+        "Seems like a fair price. I'll buy it.",
+        "Deal! This will look perfect on me.",
+        "I've been looking for something like this. I'll buy it.",
+        "This is gorgeous! Here's your money."
     },
     reject = {
-        "Not interested.",
-        "That's not what I'm looking for.",
-        "No thanks."
+        "Not interested. The quality doesn't seem right.",
+        "That's not what I'm looking for. Maybe next time.",
+        "No thanks, I was expecting something different.",
+        "I'll have to pass. It's not my style.",
+        "Too expensive for what it is. I'll look elsewhere."
     }
 }
